@@ -1,0 +1,69 @@
+function fm = fm(t,y,M, L0, k_spring, c_damper)
+
+q = y(1:6,1);
+qd = y(7:12,1); 
+
+% Geometry
+L0 = 1.18;
+L1 = 0.54;
+L2 = 0.5;
+L3 = 1.4;
+L4 = 2.8;
+L5 = 0.4;
+L6 = 0.15;
+L7 = 0.75;
+L8 = 1.94;
+L9 = 0.54;
+L10 = 0.81;
+L11 = 0.2; 
+L12 = 0.4; 
+
+% Case vectors
+S0F = [L4;-L1];
+S0E = [L3;-L2];
+S1A = [-L8;-L10];
+S1B = [-L9;-L10];
+S2C = [L5;0];
+S2D = [L11;-L6];
+S2E = [-L12;0];
+
+% q-Vectors
+r1 = q(1:2, 1);
+phi1 = q(3,1); 
+r2 = q(4:5, 1); 
+phi2 = q(6,1);
+r1d = qd(1:2,1);
+phi1d = qd(3,1);
+r2d = qd(4:5, 1);
+phi2 = qd(6,1); 
+
+
+A1 = A(phi1);
+A2 = A(phi2);
+B1 = B(phi1);
+B2 = B(phi2); 
+
+% Forces
+g = -9.81; 
+FGrav = M*[0;g;0;0;g;0]; 
+
+% % Spring
+d_s = r2 + A2*S2D - S0F;
+d_sDot = r2d + phi2d*B2*S2D; 
+L_s = sqrt(d_s' * d_s);
+u_s = d_s/L_s; 
+
+F_spring = (L0 - L_s) * k_spring * u_s; 
+Mom_spring = cross(A2*S2D, F_spring); 
+
+F_s = [0;0;95;F_spring(1,1);F_spring(2,1);Mom_spring]; 
+
+% % Damper
+L_sDot = (d_s'*d_sDot)/L_s;
+F_damper = -c_damper*L_sDot*u_s;
+Mom_damp = 
+
+
+
+end
+

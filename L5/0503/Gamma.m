@@ -1,0 +1,52 @@
+function g = Gamma(q, qd, t)
+% Geometry
+L0 = 1.18;
+L1 = 0.54;
+L2 = 0.5;
+L3 = 1.4;
+L4 = 2.8;
+L5 = 0.4;
+L6 = 0.15;
+L7 = 0.75;
+L8 = 1.94;
+L9 = 0.54;
+L10 = 0.81;
+L11 = 0.2; 
+L12 = 0.4; 
+
+% Case vectors
+S0F = [L4;-L1];
+S0E = [L3;-L2];
+S1A = [-L8;-L10];
+S1B = [-L9;-L10];
+S2C = [L5;0];
+S2D = [L11;-L6];
+S2E = [-L12;0];
+
+% q-Vectors
+r1 = q(1:2, 1);
+phi1 = q(3,1); 
+r2 = q(4:5, 1); 
+phi2 = q(6,1);
+r1d = qd(1:2,1);
+phi1d = qd(3,1);
+r2d = qd(4:5, 1);
+phi2d = qd(6,1); 
+
+
+A1 = A(phi1);
+A2 = A(phi2);
+B1 = B(phi1);
+B2 = B(phi2); 
+
+g = zeros(5,1);
+d = r2 + A2*S2C - r1 - A1*S1B; 
+dDot = r2d + phi2d*B2*S2C - r1d - phi1d*B1*S1B;
+
+g(1:2,1) = phi1d^2*A1*S1A;
+g(3,1) = -2*dDot'*dDot - 2*dDot'*(- phi2d^2*A2*S2C + phi1d^2*A1*S1B);
+g(4:5,1) = phi2d^2*A2*S2E; 
+
+
+
+
