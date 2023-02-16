@@ -44,7 +44,7 @@ d = r2 + A2*S2C - r1 - A1*S1B;
 dDot = r2d + phi2d*B2*S2C - r1d - phi1d*B1*S1B;
 
 g(1:2,1) = phi1d^2*A1*S1A;
-g(3,1) = -2*dDot'*dDot - 2*dDot'*(- phi2d^2*A2*S2C + phi1d^2*A1*S1B);
+g(3,1) = -2*dDot'*dDot - 2*d'*(- phi2d^2*A2*S2C + phi1d^2*A1*S1B);
 g(4:5,1) = phi2d^2*A2*S2E; 
 
 

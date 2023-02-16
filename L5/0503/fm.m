@@ -1,4 +1,4 @@
-function yd = fm(t,y,M, L0, k_spring, c_damper)
+function yd = fm(t,y,M,c_damper, k_spring, L0_s)
 
 q = y(1:6,1);
 qd = y(7:12,1); 
@@ -53,10 +53,10 @@ d_sDot = r2d + phi2d*B2*S2D;
 L_s = norm(d_s);
 u_s = d_s/L_s; 
 
-F_spring = (L0 - L_s) * k_spring * u_s; 
+F_spring = (L0_s - L_s) * k_spring * u_s; 
 Mom_spring = (B2*S2D)'*F_spring; 
 
-F_s = [0;0;95;F_spring;Mom_spring]; 
+F_s = [0;0;0;F_spring;Mom_spring]; 
 
 % % Damper
 L_sDot = (d_s'*d_sDot)/L_s;
@@ -68,11 +68,11 @@ F_d = [0;0;0;F_damper;Mom_damp];
 % % % All external forces
 F_ext = FGrav + F_s + F_d; 
 
-RH = [F_ext;Gamma(q,qd)];
+RH = [F_ext; Gamma(q,qd)];
 J = Jacobian(q);
-Coef = [M, -J'; J, zeros(5,5)];
+Coef = [M, (-J)'; J, zeros(5,5)];
 
-x = Coef\RH; 
+x = Coef\RH; % Error her????
 qdd = x(1:6,1);
 lambda = x(7:11,1); 
 

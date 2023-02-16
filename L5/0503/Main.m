@@ -52,8 +52,12 @@ q_init = [1.543069001347181;1.427808830719795;0.351098023786103;
 % Time
 tmin = 0;
 tmax = 15;
-dt = 0.005;
+dt = 0.01;
 t = [tmin:dt:tmax]';
 N = length(t); 
 
-[time, Y, Yd, Ydd, ReacForc] = RK4extraMultiBodyWithExtraData('fm',t, dt,q_init,6,11,M,c_damp,k_spring,L0_Spring); 
+[time, Y, Yd, Ydd, ReacForc] = RK4extraMultiBodyWithExtraData('fm',t, dt,q_init,6,11,M,c_damp,k_spring,L0_Spring);
+
+BodyPlot(t,Y,2,'',1);
+BodyPlot(t,Yd,2,'d',1);
+%BodyPlot(t,Ydd,2,'dd',1);

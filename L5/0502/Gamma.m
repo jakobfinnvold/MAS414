@@ -45,8 +45,8 @@ B3 = B(phi3);
 
 g = zeros(8,1); % THis is vector for RHS as jacobian is equal
 
-g(1:2,1) = phi2d^2*A1*S1A;
-g(3:4,1) = phi2d^2*A1*S1B - phi3d^2*A3*S3B;
+g(1:2,1) = phi1d^2*A1*S1A;
+g(3:4,1) = phi1d^2*A1*S1B - phi3d^2*A3*S3B;
 g(5:6,1) = phi2d^2*A2*S2C - phi3d^2*A3*S3C; 
 g(7,1) = 0;
 g(8,1) = 0;
